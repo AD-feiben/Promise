@@ -293,3 +293,7 @@ class Promise {
 }
 
 ```
+
+## 参考文章
+
+[BAT前端经典面试问题：史上最最最详细的手写Promise教程](https://yq.aliyun.com/articles/613412)
