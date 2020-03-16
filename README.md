@@ -246,3 +246,50 @@ then(onFulfilled, onRejected) {
   return promise2;
 }
 ```
+
+## catch 等方法实现
+
+```js
+class Promise {
+  // ...
+  catch(fn) {
+    this.then(null, fn);
+  }
+
+  static resolve (val) {
+    return new Promise((resolve) => {
+      resolve(val);
+    });
+  }
+
+  static reject (val) {
+    return new Promise((resolve, reject) => {
+      reject(val);
+    });
+  }
+
+  static race(promises) {
+    return new Promise((resolve, reject) => {
+      promises.map(promise => {
+        promise.then(resolve, reject);
+      });
+    });
+  }
+
+  static all(promises) {
+    let arr = [];
+    let i = 0;
+    return new Promise((resolve, reject) => {
+      promises.map((promise, index) => {
+        promise.then(data => {
+          arr[index] = data;
+          if (++i === promises.length) {
+            resolve(arr);
+          }
+        }, reject);
+      })
+    })
+  }
+}
+
+```
